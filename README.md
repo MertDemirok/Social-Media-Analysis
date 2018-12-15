@@ -37,9 +37,6 @@ Finally Open a new command prompt and start the consumer which listens to the to
 
 C:\kafka_2.12-0.10.2.1>.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic javainuse-topic --from-beginning
 
-
-
-
 configration 
 
 C:\kafka_2.11-2.1.0\config\server.properties
@@ -61,5 +58,4 @@ log.dirs=C:\\Tools\\kafka_2.11-2.1.0\\kafka-logs
 listeners=PLAINTEXT://:9092
 
 
-#For Windows 
-And Run RunKafka.bat 
+# Run RunKafka.bat For Windows
