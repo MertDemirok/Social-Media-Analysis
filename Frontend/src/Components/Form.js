@@ -33,16 +33,18 @@ class OutlinedTextFields extends React.Component {
 
 topicPublisher = () => {
   var instance = axios.create({
-    baseURL: 'http://localhost:5001',
+    baseURL: 'http://producer.api:5001',
     timeout: 1000,
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Methods': 'POST',
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
       'Access-Control-Allow-Origin': '*',
     },
+    withCredentials: true,
     credentials: 'same-origin',
     proxy: {
-      host:'localhost',
+      host:'producer.api',
       port: 5001
     }
   });
@@ -81,8 +83,6 @@ topicPublisher = () => {
 handleSubmit = event => {
     event.preventDefault();
     this.topicPublisher();
-
-
 }
 
   handleChange = name => event => {
@@ -121,7 +121,7 @@ handleSubmit = event => {
           style={{ margin: 20 }}
           onChange={this.handleChange('inputTitle')}
           value={this.state.inputTitle}
-          placeholder="ntv"
+          placeholder="...."
           helperText="Kafka server ready"
           fullWidth
           margin="normal"
@@ -136,7 +136,6 @@ handleSubmit = event => {
           style={{ margin: 20 }}
           onChange={this.handleChange('inputContent')}
           value={this.state.inputContent}
-          placeholder="ntv"
           helperText="Kafka server ready"
           fullWidth
           margin="normal"
@@ -155,7 +154,7 @@ handleSubmit = event => {
 }
 
 OutlinedTextFields.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,  
 };
 
 export default withStyles(styles)(OutlinedTextFields);

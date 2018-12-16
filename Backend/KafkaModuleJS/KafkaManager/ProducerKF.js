@@ -1,8 +1,8 @@
 //a topic is where data (messages) gets published to by a producer
-
 var express = require('express');
 var kafka = require('kafka-node');
 var app = express();
+var cors = require('cors');
 const port = 5001;
 const _ = require('lodash');
 var allTopics = [];
@@ -11,12 +11,11 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
-
+app.use(cors({origin:true,credentials: true}));
 
 var Producer = kafka.Producer,
     client = new kafka.Client(),
     producer = new Producer(client);
-
 
 producer.on('ready', function () {
     console.log('Producer is ready');
@@ -26,15 +25,6 @@ producer.on('error', function (err) {
     console.log('Producer is in error state');
     console.log(err);
 })
-
-app.get('/',function(req,res){
-    res.json({greeting:'Kafka Consumer'})
-});
-
-app.listen(port,function(){
-    console.log('Kafka producer running at '+ port)
-});
-
 
 client.once('connect', function () {
     client.loadMetadataForTopics([], function (error, results) {
@@ -79,3 +69,6 @@ app.get('/api/getalltopics',function(req,res){
 
 
 
+app.listen(port,'producer.api',function(){
+        console.log('Kafka producer running at '+ port)
+    });

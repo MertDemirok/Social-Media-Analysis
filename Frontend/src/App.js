@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import socketIOClient from "socket.io-client";
 import Main from './Components/Main';
 
-
 class App extends Component {
 
   state = {
@@ -45,11 +44,12 @@ render () {
   const listItems = this.state.newsItems.map((d) => <li >{d.value}</li>);
 
 return (
+  
     <div>
       <Main />
 
       <ul>{listItems}</ul>
-      
+
     </div>
     )
   }
