@@ -1,17 +1,18 @@
 //a topic is where data (messages) gets published to by a producer
 var express = require('express');
 var kafka = require('kafka-node');
-var app = express();
 var cors = require('cors');
-const port = 5001;
 const _ = require('lodash');
+var bodyParser = require('body-parser');
+var app = express();
+const port = 5001;
 var allTopics = [];
-var bodyParser = require('body-parser')
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-})); 
+var Publisher = require("./Publisher");
+
+app.use( bodyParser.json() );      
+app.use(bodyParser.urlencoded({ extended: true})); 
 app.use(cors({origin:true,credentials: true}));
+
 
 var Producer = kafka.Producer,
     client = new kafka.Client(),
@@ -36,32 +37,41 @@ client.once('connect', function () {
     });
 
 });
-//Create topic and send message to topic
-/**{
-   topic: 'topicName',
-   messages: ['message body'], // multi messages should be a array, single message can be just a string or a KeyedMessage instance
-   key: 'theKey', // only needed when using keyed partitioner (optional)
-   partition: 0, // default 0 (optional)
-   attributes: 2 // default: 0 used for compression (optional)
-} */
-/**{
-	"topic":"posts",
-	"message":{"text":"kafka json test !","type":"text","arry":["mert","demirok","6"]}
-	
-} */
-app.post('/api/producer',function(req,res){
-    var sentMessage = JSON.stringify(req.body.message);
+
+async function sendtoKafkaServer(topic,sentMessage) {
     payloads = [
-        {   topic: req.body.topic, 
+        {   topic: topic, 
             messages:sentMessage , 
             partition: 0 
         }
     ];
     producer.send(payloads, function (err, data) {
-            res.json(data);
+        return  data;
     });
-    
+  }
+
+app.post('/api/producer',function(req,res){
+    var sentMessage = JSON.stringify(req.body.message);
+
+    sendtoKafkaServer(req.body.topic,sentMessage).then((response) =>{
+         res.json(response);
+    });
 })
+
+app.get('/api/getalltweet',function (req,res) {
+
+    Publisher.pTwitter(req.query.search).then((tweets) =>{
+        
+        console.log("Request Parameter: ", req.query.search)
+        for (let index = 0; index < tweets.length; index++) {
+                const element = tweets[index];
+                sendtoKafkaServer(req.query.search,element.text).then(() =>{
+                });   
+        }
+        console.log("Tweet in kafka Server and publish frontend")
+        res.send(tweets)
+  });
+});
 
 app.get('/api/getalltopics',function(req,res){
     res.json(allTopics)

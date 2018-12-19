@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid'
 import NavBar from './NavBar';
 import MiddleTabs from './MiddleTabs';
 import Feeds from './Feeds';
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -16,7 +17,7 @@ const styles = theme => ({
     display: 'flex',
   },
   paper: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 1,
     textAlign: 'center',
     color: theme.palette.text.secondary,
     flex: '1 0 auto',
@@ -27,20 +28,19 @@ const styles = theme => ({
 
 function BreakpointDown(props) {
   const { classes } = props;
-
   return (
     
     <div className={classes.root}>
     <NavBar/>
       <Grid container spacing={24}>
-        <Grid item xs>
-          <Paper className={classes.paper}><Feeds/></Paper>
-        </Grid>
-        <Grid item xs={5}>
-          <Paper className={classes.paper}><MiddleTabs></MiddleTabs></Paper>
+      <Grid  item xs={4}>
+          <Paper elevation={5} className={classes.paper}><MiddleTabs></MiddleTabs></Paper>
         </Grid>
         <Grid item xs>
-          <Paper className={classes.paper}>3djs</Paper>
+          <Paper elevation={10}  className={classes.paper}><Feeds/></Paper>
+        </Grid>
+        <Grid item xs>
+          <Paper elevation={10} className={classes.paper}>3djs</Paper>
         </Grid>
       </Grid>
 

@@ -8,7 +8,7 @@ const NavBar = () => {
         <AppBar position="static">
             <Toolbar>
                 <Typography variant="title" color="inherit">
-                Producer Control Panel
+                Producer Control Panel 
                 </Typography>
             </Toolbar>
         </AppBar>

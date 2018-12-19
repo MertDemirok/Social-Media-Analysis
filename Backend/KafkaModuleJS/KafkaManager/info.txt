@@ -1,0 +1,13 @@
+//Create topic and send message to topic
+/**{
+   topic: 'topicName',
+   messages: ['message body'], // multi messages should be a array, single message can be just a string or a KeyedMessage instance
+   key: 'theKey', // only needed when using keyed partitioner (optional)
+   partition: 0, // default 0 (optional)
+   attributes: 2 // default: 0 used for compression (optional)
+} */
+/**{
+	"topic":"posts",
+	"message":{"text":"kafka json test !","type":"text","arry":["mert","demirok","6"]}
+	
+} */

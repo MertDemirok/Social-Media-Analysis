@@ -10,6 +10,7 @@ var app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
+
 io.setMaxListeners(1000);
 io.on("connection", socket => {
       console.log("New client connected");
@@ -21,7 +22,7 @@ io.on("connection", socket => {
 
     var Consumer = kafka.Consumer;
     var client = new kafka.Client();
-    var topics  = [{ topic: 'posts', offset: 0 },{ topic: 'test', offset: 0 },{ topic: 'test3', offset: 0 }]
+    var topics  = [{ topic: 'posts', offset: 0 },{ topic: 'ntv', offset: 0 },{ topic: 'test3', offset: 0 }]
     var consumer = new Consumer(client, topics, { autoCommit: false });
     
     consumer.on('message', function (message) {

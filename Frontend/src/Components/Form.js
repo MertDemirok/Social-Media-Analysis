@@ -25,15 +25,19 @@ const styles = theme => ({
 
 class OutlinedTextFields extends React.Component {
   state = {
-    topicName:'posts',
+    topicName:'ntv',
     inputTitle:'',
     inputContent:'',
+    status:false,
+    publishBaseURL:'http://producer.api:5001',
+    hostName:'producer.api',
+    portName: 5001,
   };
 
 
 topicPublisher = () => {
   var instance = axios.create({
-    baseURL: 'http://producer.api:5001',
+    baseURL: this.state.publishBaseURL,
     timeout: 1000,
     headers: {
       'Content-Type': 'application/json',
@@ -44,8 +48,8 @@ topicPublisher = () => {
     withCredentials: true,
     credentials: 'same-origin',
     proxy: {
-      host:'producer.api',
-      port: 5001
+      host:this.state.hostName,
+      port: this.state.portName
     }
   });
 
@@ -57,12 +61,18 @@ topicPublisher = () => {
         content:  this.state.inputContent
       }
   }).then(res => {  
+
+  
+    
     if(res.data !== ""){
-      const resultOffset = " Created and Published";
-      this.setState({resultOffset});
-      this.setState({isDetailActive: false})
+
+      setTimeout(function() { 
+        this.setState({status: true}); 
+      }.bind(this), 1000)
+      this.setState({status:''})
       this.setState({inputTitle:''})
       this.setState({inputContent:''})
+     
     }else{
       alert("Not Found Topic :(");
     }
@@ -91,11 +101,8 @@ handleSubmit = event => {
     });
   };
 
-
-
   render() {
     const { classes } = this.props;
-    //const stylet = this.state.isDetailActive ? {display :'none'} : {};
     return (
       <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
         <TextField
@@ -105,8 +112,7 @@ handleSubmit = event => {
           className={classes.textField}
           value={this.state.topicName}
           onChange={this.handleChange('topicName')}
-          placeholder="ntv"
-          helperText="Kafka server ready"
+          placeholder="#ntv"
           fullWidth
           margin="normal"
           variant="outlined"
@@ -122,7 +128,6 @@ handleSubmit = event => {
           onChange={this.handleChange('inputTitle')}
           value={this.state.inputTitle}
           placeholder="...."
-          helperText="Kafka server ready"
           fullWidth
           margin="normal"
           variant="outlined"
@@ -136,7 +141,7 @@ handleSubmit = event => {
           style={{ margin: 20 }}
           onChange={this.handleChange('inputContent')}
           value={this.state.inputContent}
-          helperText="Kafka server ready"
+          helperText=""
           fullWidth
           margin="normal"
           variant="outlined"
@@ -145,10 +150,9 @@ handleSubmit = event => {
           }}
         />
          <Button style={{ width: 350}} variant="contained" color="secondary"  type="submit" className={classes.button}>
-        " {this.state.topicName} "  Topic Publish
+        " {this.state.topicName} "  Topic {this.state.status? "published":"Publish"}
       </Button>
-      </form>
-      
+      </form> 
     );
   }
 }
