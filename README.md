@@ -13,7 +13,13 @@ In using
 
 The Java Environment variables should be set.
 
-Got to the Apache Kafka downloads page and download the Scala 2.12 kafka_2.12-0.10.2.1.tgz
+Got to the Apache Kafka downloads page and download the Scala 2.12 
+
+https://kafka.apache.org/downloads
+
+http://zookeeper.apache.org/releases.html#download
+
+kafka_2.12-0.10.2.1.tgz
 Unzip it.
 
 Open cmd prompt and start zookeeper-
@@ -69,3 +75,26 @@ listeners=PLAINTEXT://:9092
 
 
 Note: Run RunKafka.bat For Windows
+
+Troubleshooting
+
+If you deleted all topic , need to new kafka cluster create  
+1)Create the chroot in the Zookeeper with the following commands:
+
+zkCli.sh -server localhost:2181
+
+create /kafka1 []
+
+2)For the kafka brokers config , modify zookeeper.connect and add chroot path : For eg.
+
+In server.properties :
+
+zookeeper.connect=localhost:2181/kafka1
+
+3)Start Zookeeper
+
+4)Start Kafka Server
+
+5) Create a topic as below: bin/kafka-topic.sh --create -zookeeper localhost:2181/kafka1 --replication-factor 1 --partitions 1 --topic data
+
+6)Confirm the created topic: bin/kafka-topics.sh --list --zookeeper localhost:2181/kafka1

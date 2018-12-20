@@ -22,9 +22,15 @@ io.on("connection", socket => {
 
     var Consumer = kafka.Consumer;
     var client = new kafka.Client();
-    var topics  = [{ topic: 'ertugrul', offset: 0 },{ topic: 'bbc', offset: 0 },{ topic: 'teknosa', offset: 0 }]
+    var topics  = [{ topic: 'bbc', offset: 0 }]
     var consumer = new Consumer(client, topics, { autoCommit: false });
     
+    
+   /**  consumer.removeTopics(['teknosa'], function (err, removed) {
+      console.log("kalktı",removed)
+    });
+    */
+
     consumer.on('message', function (message) {
         
          console.log(message);
@@ -38,7 +44,7 @@ io.on("connection", socket => {
         console.log('offsetOutOfRange:',err);
     })
 
-321
+
     function postToSocket(io,event,message){
       try {
        

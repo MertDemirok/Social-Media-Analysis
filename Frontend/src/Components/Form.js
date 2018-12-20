@@ -73,8 +73,6 @@ topicPublisher = () => {
       this.setState({inputTitle:''})
       this.setState({inputContent:''})
      
-    }else{
-      alert("Not Found Topic :(");
     }
   }).catch(function (error) {
     if (error.response) {

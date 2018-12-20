@@ -1,31 +1,16 @@
-var fs = require('fs');
-var path = require('path');
 var express = require('express');
-const http = require("http");
-var kafka = require('kafka-node');
 var twitterAnalysisInstance = require("./SparkManager/twitterAnalysis");
 
 const host = '127.0.0.1';
-
 const port = process.env.PORT || 5009;
+
 var app = express();
-
-
-var Sentiment = require("sentiment");
-var sentiment = new Sentiment();
-var docx = sentiment.analyze("I like nodejs");
-app.use(express.static('content'));
-
-
 
 app.get('/api/dataanalysis',function (req, res) {
     
-   const result = twitterAnalysisInstance.twitterAnalysis().then(() =>{}); 
-
-   console.log(result);
-
-    res.json(result);
-    
+   twitterAnalysisInstance.twitterAnalysis().then((result) =>{
+       res.json(result)
+   });    
 })
 
 app.listen(port, host, function () {
@@ -37,6 +22,8 @@ app.listen(port, host, function () {
 
 
 
+
+//------------------------------------------------------------------
 
 /*http.createServer(function (request, response) {
     console.log('request starting...');
