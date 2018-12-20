@@ -52,7 +52,7 @@ class Feeds  extends Component {
           const url = "/api/getalltweet";
           instance.get(url,{
             params: {
-                search: 'ntv'
+                search: 'bbc'
             }}).then(res => {
             
               res.data.forEach(element => {

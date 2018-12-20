@@ -25,7 +25,7 @@ const styles = theme => ({
 
 class OutlinedTextFields extends React.Component {
   state = {
-    topicName:'ntv',
+    topicName:'bbc',
     inputTitle:'',
     inputContent:'',
     status:false,

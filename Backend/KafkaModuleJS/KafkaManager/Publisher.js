@@ -5,7 +5,7 @@ var T = new Twitter(config);
 async function pTwitter(topic) {
     var params = {
         q:  topic,
-        lang: 'tr' ,
+        lang: 'en' ,
         count: 10
       }
     let tweets = '';
