@@ -1,5 +1,14 @@
 # Social Media Analysis 
 
+In using
+*Apache Kafka
+  *Apache zookeeper
+*Apache spark
+*Node.js
+*React.js
+*MaterialUI
+*Socket.IO
+
 -- How to run --
 
 The Java Environment variables should be set.
