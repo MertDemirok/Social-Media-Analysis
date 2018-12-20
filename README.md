@@ -1,5 +1,6 @@
-# kafka-node-module
+# Social Media Analysis 
 
+-- How to run --
 
 The Java Environment variables should be set.
 
@@ -58,4 +59,4 @@ log.dirs=C:\\Tools\\kafka_2.11-2.1.0\\kafka-logs
 listeners=PLAINTEXT://:9092
 
 
-# Run RunKafka.bat For Windows
+Note: Run RunKafka.bat For Windows
