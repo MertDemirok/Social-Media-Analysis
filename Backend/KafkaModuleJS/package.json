@@ -16,6 +16,7 @@
     "kafka-node": "^3.0.1",
     "lodash": "^4.17.11",
     "node-tweet-stream": "^2.0.3",
+    "read-file": "^0.2.0",
     "socket.io": "^2.2.0",
     "twitter": "^1.7.1"
   }

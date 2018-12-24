@@ -25,7 +25,7 @@ const styles = theme => ({
 
 class OutlinedTextFields extends React.Component {
   state = {
-    topicName:'bbc',
+    topicName:'',
     inputTitle:'',
     inputContent:'',
     status:false,
@@ -52,25 +52,19 @@ topicPublisher = () => {
       port: this.state.portName
     }
   });
-
+ 
   const url = "/api/producer";
   instance.post(url,{
       topic : this.state.topicName,
-      message: {
-        title: this.state.inputTitle,
-        content:  this.state.inputContent
-      }
+      message: this.state.inputContent
   }).then(res => {  
 
-  
-    
     if(res.data !== ""){
 
       setTimeout(function() { 
         this.setState({status: true}); 
       }.bind(this), 1000)
       this.setState({status:''})
-      this.setState({inputTitle:''})
       this.setState({inputContent:''})
      
     }
@@ -121,25 +115,10 @@ handleSubmit = event => {
 
         <TextField
           id="outlined-full-width"
-          label="News Title"
-          style={{ margin: 20 }}
-          onChange={this.handleChange('inputTitle')}
-          value={this.state.inputTitle}
-          placeholder="...."
-          fullWidth
-          margin="normal"
-          variant="outlined"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <TextField
-          id="outlined-full-width"
-          label="News Detail"
+          label="Message"
           style={{ margin: 20 }}
           onChange={this.handleChange('inputContent')}
           value={this.state.inputContent}
-          helperText=""
           fullWidth
           margin="normal"
           variant="outlined"

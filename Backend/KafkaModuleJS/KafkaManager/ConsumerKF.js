@@ -5,11 +5,10 @@ const socketIo = require("socket.io");
 var kafka = require('kafka-node');
 const port = process.env.PORT || 5002;
 var publishData =[];
-
 var app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
-
+//var json_data = require('./../../../../kafka-node-module/TopicList.json');
 
 io.setMaxListeners(1000);
 io.on("connection", socket => {
@@ -22,7 +21,7 @@ io.on("connection", socket => {
 
     var Consumer = kafka.Consumer;
     var client = new kafka.Client();
-    var topics  = [{ topic: 'bbc', offset: 0 }]
+    var topics  = [{ topic: 'bbc', offset: 0 },{ topic: 'discover', offset: 0 },{ topic: 'accenture', offset: 0 }]
     var consumer = new Consumer(client, topics, { autoCommit: false });
     
     
@@ -33,8 +32,7 @@ io.on("connection", socket => {
 
     consumer.on('message', function (message) {
         
-         console.log(message);
-        //Spark a gidicek data JSON.stringify({message})
+        console.log(message);
         postToSocket(io,'News',JSON.stringify(message))
     });
     consumer.on('error', function (err) {

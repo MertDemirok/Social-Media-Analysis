@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid'
 import NavBar from './NavBar';
 import MiddleTabs from './MiddleTabs';
 import Feeds from './Feeds';
+import VChart from './VChart';
 
 const styles = theme => ({
   root: {
@@ -29,18 +30,18 @@ const styles = theme => ({
 function BreakpointDown(props) {
   const { classes } = props;
   return (
-    
+
     <div className={classes.root}>
-    <NavBar/>
+      <NavBar />
       <Grid container spacing={24}>
-      <Grid  item xs={4}>
+        <Grid item xs={4}>
           <Paper elevation={5} className={classes.paper}><MiddleTabs></MiddleTabs></Paper>
         </Grid>
         <Grid item xs>
-          <Paper elevation={10}  className={classes.paper}><Feeds/></Paper>
+          <Paper elevation={10} className={classes.paper}><Feeds /></Paper>
         </Grid>
         <Grid item xs>
-          <Paper elevation={10} className={classes.paper}>3djs</Paper>
+          <Paper elevation={10} className={classes.paper}><VChart /></Paper>
         </Grid>
       </Grid>
 

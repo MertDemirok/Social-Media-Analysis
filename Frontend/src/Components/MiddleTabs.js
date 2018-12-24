@@ -6,7 +6,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Form from "./Form";
-
+import TopicList from "./TopicList";
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -29,7 +29,7 @@ const styles = theme => ({
 
 class ScrollableTabsButtonAuto extends React.Component {
   state = {
-    value: 1
+    value: 0
   };
 
   handleChange = (event, value) => {
@@ -51,12 +51,14 @@ class ScrollableTabsButtonAuto extends React.Component {
             scrollable
             scrollButtons="auto"
           >
-            <Tab label="Topic Create" />
+            <Tab label="TOPICS" />
             <Tab label="Content Publish" />
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer>Topic Create</TabContainer>}
+        {value === 0 && <TabContainer><TopicList></TopicList> </TabContainer>}
+
         {value === 1 && <TabContainer><Form></Form> </TabContainer>}
+       
       </div>
     );
   }
