@@ -34,7 +34,7 @@ function BreakpointDown(props) {
     <div className={classes.root}>
       <NavBar />
       <Grid container spacing={24}>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Paper elevation={5} className={classes.paper}><MiddleTabs></MiddleTabs></Paper>
         </Grid>
         <Grid item xs>

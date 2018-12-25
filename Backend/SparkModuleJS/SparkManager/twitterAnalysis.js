@@ -1,15 +1,45 @@
 var Sentiment = require("sentiment");
 var kafka = require('kafka-node');
-var sentiment = new Sentiment();
+var express = require('express');
+const http = require("http");
+const socketIo = require("socket.io");
 
-var TweetResponse= []
+const port = process.env.PORT || 5005;
+var app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
+
+
+
+var sentiment = new Sentiment();
+var TweetResponse = []
 var dataScore = {
-            "Very Negative": 0,
-            "Negative": 0,
-            "Normal": 0,
-            "Good": 0,
-            "Very Good": 0
-        };
+    "Very Negative": 0,
+    "Negative": 0,
+    "Normal": 0,
+    "Good": 0,
+    "Very Good": 0
+};
+
+
+io.setMaxListeners(1000);
+io.on("connection", socket => {
+    console.log("New client connected");
+
+    socket.on("disconnect", () => {
+        return console.log("Client disconnected");
+    });
+});
+
+function postToSocket(io,event,message){
+    try {
+     
+      io.sockets.emit(event, JSON.stringify(message));
+    } catch (error) {
+      console.error(`Error: ${error.code}`);
+    }
+  };  
+
 
 async function twitterAnalysis(topicName) {
 
@@ -17,34 +47,34 @@ async function twitterAnalysis(topicName) {
     var client = new kafka.Client();
     var topics = [{ topic: topicName, offset: 0 }]
     var consumer = new Consumer(client, topics, { autoCommit: false });
-
+    
     consumer.on('message', function (message) {
 
-         TweetResponse = [{
+        TweetResponse = [{
             topic: message.topic,
             text: message.value,
         }];
-        
+
         var result = sentiment.analyze(TweetResponse[0].text);
 
         if (result.score < -4) {
-          //  sortedTwitterData.unshift(topicDetail[0].text);
+            //  sortedTwitterData.unshift(topicDetail[0].text);
             dataScore["Very Negative"] += 1;
         }
         else if (result.score >= -2 && result.score < 0) {
-           // sortedTwitterData.splice(2, 0, topicDetail[0].text);
+            // sortedTwitterData.splice(2, 0, topicDetail[0].text);
             dataScore["Negative"] += 1;
         }
         else if (result.score == 0) {
-          //  sortedTwitterData.splice(3, 0, topicDetail[0].text);
+            //  sortedTwitterData.splice(3, 0, topicDetail[0].text);
             dataScore["Normal"] += 1;
         }
         else if (result.score > 0 && result.score <= 3) {
-           // sortedTwitterData.splice(4, 0, topicDetail[0].text);
+            // sortedTwitterData.splice(4, 0, topicDetail[0].text);
             dataScore["Good"] += 1;
         }
         else {
-        //    sortedTwitterData.push(topicDetail[0].text);
+            //    sortedTwitterData.push(topicDetail[0].text);
             dataScore["Very Good"] += 1;
         }
 
@@ -56,9 +86,17 @@ async function twitterAnalysis(topicName) {
     };
 
     console.log(analysisResult)
-
+    postToSocket(io,'TwitterAnalysis',analysisResult)
     return analysisResult;
 };
+
+
+server.listen(port,{
+    log: false,
+    agent: false,
+    origins: '*:*',
+    transports: ['websocket', 'htmlfile', 'xhr-polling', 'jsonp-polling', 'polling']
+},() => console.log(`Listening on Socket port ${port}`));
 
 module.exports.twitterAnalysis = twitterAnalysis;
 

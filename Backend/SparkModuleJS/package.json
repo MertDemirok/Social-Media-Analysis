@@ -20,6 +20,7 @@
     "sentiment": "^5.0.1",
     "sentiment-turkish": "^1.0.1",
     "skale": "^1.2.1",
+    "socket.io": "^2.2.0",
     "twitter": "^1.7.1"
   }
 }

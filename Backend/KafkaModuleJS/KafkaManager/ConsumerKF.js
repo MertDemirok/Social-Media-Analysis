@@ -4,7 +4,7 @@ const http = require("http");
 const socketIo = require("socket.io");
 var kafka = require('kafka-node');
 const port = process.env.PORT || 5002;
-var publishData =[];
+
 var app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
@@ -21,7 +21,13 @@ io.on("connection", socket => {
 
     var Consumer = kafka.Consumer;
     var client = new kafka.Client();
-    var topics  = [{ topic: 'bbc', offset: 0 },{ topic: 'discover', offset: 0 },{ topic: 'accenture', offset: 0 }]
+    var topics  = [
+    { topic: 'bbc', offset: 0 },
+    { topic: 'discover', offset: 0 },
+    { topic: 'accenture', offset: 0 },
+    { topic: 'ntv', offset: 0 },
+    { topic: 'cnn', offset: 0 }
+  ]
     var consumer = new Consumer(client, topics, { autoCommit: false });
     
     

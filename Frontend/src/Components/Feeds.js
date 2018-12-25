@@ -98,6 +98,10 @@ class Feeds extends Component {
       this.setState({ newsItems: list });
 
     }else{ 
+
+      this.setState({newsIndex:0});
+      this.setState({ newsItems: [] });
+   
       /** for (var i = this.state.newsItems.length; i > 0; i--) {
  
       this.state.newsItems.pop();
@@ -105,16 +109,17 @@ class Feeds extends Component {
      } */   
      
     }
+    
 
-    const listItems = this.state.newsItems.map(item => (<CardtoFeed classes={item} key={this.state.newsIndex++} />));
+    var listItems = this.state.newsItems.map(item => (<CardtoFeed classes={item} key={this.state.newsIndex++} />));
+    listItems= listItems.reverse();
     this.setState({ coreview: <div >{listItems}</div> });
    
   }
 
   componentDidMount() {
 
-    //this.addTweetsToKafka("bbc")
-    
+ 
     const { endpoint } = this.state;
     const socket = socketIOClient(endpoint);
     socket.on("News", data => this.addNewsList(data));
@@ -125,7 +130,7 @@ class Feeds extends Component {
 
     return (
       <div >
-        <Button style={{ width: 300 }} variant="contained" color="primary" type="submit" >Detail</Button>
+       {!this.state.coreview ?  <Button style={{ width: 300 }} variant="contained" color="primary" type="submit" >Detail</Button> : null  }
         {this.state.coreview}
       </div>
 
@@ -154,6 +159,7 @@ const styles = {
 
 function CardtoFeed(props) {
   const { classes } = props;
+ 
   const topicDetail = classes;
   return (
     <div>

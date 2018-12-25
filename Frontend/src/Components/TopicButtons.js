@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Button from '@material-ui/core/Button';
 import feeds from './Feeds'
+import VChart from './VChart'
+import axios from 'axios'
 
 class Tbutton extends Component {
 
@@ -12,6 +14,9 @@ class Tbutton extends Component {
         },
         topicName: '',
         feedsView:'',
+    chartbaseURL: 'http://localhost:5009',
+    hostName:'localhost',
+    portName: 5009,
     }
 
     handleChange = name => event => {
@@ -21,10 +26,35 @@ class Tbutton extends Component {
         console.log( event.currentTarget.id)
         this.setState({feedsView:event.currentTarget.id})
         const feed = new feeds();
+        const vchart = new VChart();
         feed.addNewsList("")
         feed.addTweetsToKafka(event.currentTarget.id);
+        vchart.setState({topicName:event.currentTarget.id})
+        this.getAnalysisData(event.currentTarget.id)
+
       
     };
+
+    getAnalysisData = (tName) =>{
+
+        var instance = axios.create({
+          baseURL: this.state.chartbaseURL,
+          proxy: {
+            host:this.state.hostName,
+            port: this.state.portName
+          }
+        });
+       
+        const url = "/api/dataanalysis";
+        instance.get(url,{
+          params: {
+            topicname: tName
+          }
+        }).then(res => {  
+          console.log( res)
+        })
+    
+      }
 
     render() {
        
