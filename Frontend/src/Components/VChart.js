@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Bar, Line, Pie } from 'react-chartjs-2';
 
 import socketIOClient from "socket.io-client";
-
+import CardContent from '@material-ui/core/CardContent';
 class VChart extends Component {
   constructor(props) {
     super(props)
@@ -74,18 +74,18 @@ class VChart extends Component {
     return (
       <div className="chart">
 
-        <Bar
+<CardContent> <Bar
           data={this.state.chartData}
           options={{
             maintainAspectRatio: false
           }}
-        />
-        
-        <Line   
+        /></CardContent>
+<CardContent> <Line   
         data={this.state.chartData}
           options={{
             maintainAspectRatio: false
-          }}/>
+          }}/></CardContent>
+       
 
       </div>
 
