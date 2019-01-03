@@ -4,6 +4,7 @@ cd C:\kafka_2.11-2.1.0
 start cmd /k call .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
 start cmd /k call .\bin\windows\kafka-server-start.bat .\config\server.properties
 
+
 ::start cmd /k call .\bin\windows\kafka-topics.bat --zookeeper localhost:2181{\silicegin topigin cluster ısmı gelır yanı } --delete --topic test
 
 cd C:\Personal\Project\kafka-node-module\Frontend

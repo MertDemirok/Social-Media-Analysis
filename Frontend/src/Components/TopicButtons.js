@@ -23,13 +23,13 @@ class Tbutton extends Component {
         this.setState({
             [name]: event.currentTarget.id,
         });
-        console.log( event.currentTarget.id)
+        console.log("choose Topic: ", event.currentTarget.id)
         this.setState({feedsView:event.currentTarget.id})
         const feed = new feeds();
-        const vchart = new VChart();
         feed.addNewsList("")
         feed.addTweetsToKafka(event.currentTarget.id);
-        vchart.setState({topicName:event.currentTarget.id})
+        feed.setState({topicName:event.currentTarget.id})
+
         this.getAnalysisData(event.currentTarget.id)
 
       

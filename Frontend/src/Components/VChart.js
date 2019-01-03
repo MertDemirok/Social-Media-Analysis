@@ -7,7 +7,7 @@ class VChart extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      topicName: 'bbc',
+      topicName: '',
       endpoint: "http://localhost:5005",
       chartbaseURL: 'http://localhost:5009',
       hostName: 'localhost',
@@ -17,6 +17,7 @@ class VChart extends Component {
         labels: ["Very Negative", "Negative", "Normal", "Good", "Very Good"],
         datasets: [
           {
+            label: '',
             data: [],
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
@@ -35,9 +36,6 @@ class VChart extends Component {
 
 
   componentDidMount() {
-    console.log("topic Name", this.state.topicName)
-
-
     const { endpoint } = this.state;
     const socket = socketIOClient(endpoint);
     socket.on("TwitterAnalysis", data => this.dataControl(data));
@@ -45,8 +43,9 @@ class VChart extends Component {
 
   dataControl = (res) => {
 
-    var resDataScore = JSON.parse(res).score
-  
+    var resDataScore = JSON.parse(res).score;
+   
+
     this.setState({ finalScores: resDataScore })
     var label = this.state.chartData.labels;
 
@@ -60,13 +59,14 @@ class VChart extends Component {
             datasets: [
               { 
                 data: newdata ,
-                backgroundColor: this.state.chartData.datasets[0].backgroundColor
+                backgroundColor: this.state.chartData.datasets[0].backgroundColor,
+                label : JSON.parse(res).topic
               }
             ]
           } 
         });
       });
-  
+ 
   }
 
   render() {
@@ -92,7 +92,6 @@ class VChart extends Component {
     )
   }
 }
-
 
 
 export default VChart
