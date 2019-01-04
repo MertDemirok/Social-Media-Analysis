@@ -32,6 +32,7 @@ class OutlinedTextFields extends React.Component {
     publishBaseURL:'http://producer.api:5001',
     hostName:'producer.api',
     portName: 5001,
+    chartbaseURL: 'http://localhost:5009',
   };
 
 
@@ -82,9 +83,33 @@ topicPublisher = () => {
   console.log(error.config);
 });
 }
+
+getAnalysisData = (tName) =>{
+
+  var instance = axios.create({
+    baseURL: this.state.chartbaseURL,
+    proxy: {
+      host:this.state.hostName,
+      port: this.state.portName
+    }
+  });
+ 
+  const url = "/api/dataanalysis";
+  instance.get(url,{
+    params: {
+      topicname: this.state.topicName
+    }
+  }).then(res => {  
+   // console.log( res)
+  })
+
+}
+
+
 handleSubmit = event => {
     event.preventDefault();
     this.topicPublisher();
+    this.getAnalysisData();
 }
 
   handleChange = name => event => {

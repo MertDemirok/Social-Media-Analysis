@@ -98,3 +98,11 @@ zookeeper.connect=localhost:2181/kafka1
 5) Create a topic as below: bin/kafka-topic.sh --create -zookeeper localhost:2181/kafka1 --replication-factor 1 --partitions 1 --topic data
 
 6)Confirm the created topic: bin/kafka-topics.sh --list --zookeeper localhost:2181/kafka1
+
+
+
+solr download and Install and run bin/solr create TwitterD  solr directory
+
+and
+
+solr start

@@ -10,9 +10,6 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 
-
-var sentiment = new Sentiment();
-var TweetResponse = []
 var dataScore = {
     "Very Negative": 0,
     "Negative": 0,
@@ -20,6 +17,8 @@ var dataScore = {
     "Good": 0,
     "Very Good": 0
 };
+var sentiment = new Sentiment();
+var TweetResponse = []
 
 
 io.setMaxListeners(1000);
@@ -49,8 +48,9 @@ async function twitterAnalysis(topicName) {
     var consumer = new Consumer(client, topics, { autoCommit: false });
     var analysisResult ='';
 
-    
+
     consumer.on('message', function (message) {
+
 
         TweetResponse = [{
             topic: message.topic,
@@ -86,6 +86,7 @@ async function twitterAnalysis(topicName) {
         topic: topicName,
         score: dataScore,
     };
+
 
     console.log(analysisResult)
     postToSocket(io,'TwitterAnalysis',analysisResult)

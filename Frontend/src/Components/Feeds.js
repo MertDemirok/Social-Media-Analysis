@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import FaSearch from 'react-icons/lib/fa/search';
 import SearchResult from './SearchResult';
 
-class Feeds extends React.Component {
+class Feeds extends Component {
 
   state = {
     topicName: '',
@@ -78,7 +78,7 @@ class Feeds extends React.Component {
         
         var list = this.state.tweets.concat(this.state.tweetResponse)
         this.setState({tweets:list});   });*/
-      console.log("Tweet Data: ", res);
+    console.log("Tweet Data: ", res);
 
     }).catch(function (error) {
       if (error.response) {
@@ -103,20 +103,21 @@ class Feeds extends React.Component {
 
       var dataInfo = JSON.parse(data);
       dataInfo = JSON.parse(dataInfo);
-
+  
       this.setState({ topicName: dataInfo.topic })
       var list = this.state.newsItems.concat(dataInfo);
       this.setState({ newsItems: list });
-
+      
+  
       var listItems = this.state.newsItems.map(item => (<CardtoFeed classes={item} key={this.state.newsIndex++} />));
       listItems = listItems.reverse();
       this.setState({ coreview: <div >{listItems}</div> });
 
     } else {
 
-      this.setState({ newsIndex: 0 });
-      this.setState({ newsItems: [] });
-      this.setState({ coreview: '' });
+      //this.setState({ newsIndex: 0 });
+      //this.setState({ newsItems: [] });
+     // this.setState({ coreview: '' });
 
       /** for (var i = this.state.newsItems.length; i > 0; i--) {
  
@@ -139,7 +140,7 @@ class Feeds extends React.Component {
           port: this.state.port
         }
       });
-      console.log("search:", this.state.searchKeyword, " topic:", this.state.topicName)
+ //console.log("search:", this.state.searchKeyword, " topic:", this.state.topicName)     
       this.setState({ searchResultList: [] });
       this.setState({searchDataResult: {}});
       const url = "/api/datasearch";
@@ -149,7 +150,7 @@ class Feeds extends React.Component {
           topic: this.state.topicName
         }
       }).then(res => {
-        console.log(res);
+        //console.log(res);
         if (res.data[0].result !== "NotFound") {
           res.data.forEach(element => {
             
@@ -165,7 +166,7 @@ class Feeds extends React.Component {
            this.setState({ searchResultList: list });
           });
 
-         console.log("Keyword Result Data: ", this.state.searchResultList);
+        // console.log("Keyword Result Data: ", this.state.searchResultList);
          // var listItems = this.state.searchResultList.map(item => ());
           //  this.setState({ coreview: <div >{listItems}</div> });
         } else {
@@ -184,7 +185,6 @@ class Feeds extends React.Component {
         console.log(error.config);
 
       });
-   
 
   }
 
@@ -212,8 +212,10 @@ class Feeds extends React.Component {
    
     return (
       <div >
+         
         {!this.state.coreview ? <Button style={{ width: 300 }} variant="contained" color="primary" type="submit" >Detail</Button> :
-          <form onSubmit={this.handleSubmit} noValidate autoComplete="off">
+           "Searching: "+this.state.searchKeyword}{<form onSubmit={this.handleSubmit} noValidate autoComplete="off">
+         
             <TextField
               id="outlined-name"
               label={<FaSearch />}
@@ -224,8 +226,9 @@ class Feeds extends React.Component {
             />
           </form>
         }
-        {this.state.searchKeyword}
-       {this.state.searchResultList.map(item=> <div key={this.state.resultCount++} >{item.text}</div> )} 
+      
+       {this.state.searchResultList.map(item=> <Button style={{ width: 350 ,margin: 5 }} variant="outlined" color="primary"
+                                                       key={this.state.resultCount++} >{item.text}</Button> )} 
         {this.state.coreview}
       </div>
 

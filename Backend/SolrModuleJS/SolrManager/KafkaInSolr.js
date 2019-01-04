@@ -10,7 +10,7 @@ const server = http.createServer(app);
 var client_Solr = new SolrNode({
    host: 'localhost',
    port: '8983',
-   core: 'deneme',
+   core: 'TwitterData',
    protocol: 'http'
 });
 
@@ -24,10 +24,9 @@ topic_List.Topics.forEach(function (params, i) {
 
 });
 
+
 var consumer = new Consumer(client_Kafka, topics, { autoCommit: false });
 
-
-console.log("All Topics: ",topics)
 consumer.on('message', function (message) {
 
    var data = {
@@ -40,15 +39,17 @@ consumer.on('message', function (message) {
          console.log(err);
          return;
       }
+      console.log("Data is pushing")
       console.log('Response:', result.responseHeader);
    });
+
 });
 consumer.on('error', function (err) {
    console.log('Error:', err);
- })
- consumer.on('offsetOutOfRange', function (err) {
+})
+consumer.on('offsetOutOfRange', function (err) {
    console.log('offsetOutOfRange:', err);
- })
+})
 
 
 server.listen(port, {

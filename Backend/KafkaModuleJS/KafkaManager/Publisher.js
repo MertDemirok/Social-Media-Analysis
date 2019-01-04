@@ -6,7 +6,7 @@ async function pTwitter(topic) {
   var params = {
     q: topic,
     lang: 'en',
-    count: 20
+    count: 10
   }
   let tweets = '';
 

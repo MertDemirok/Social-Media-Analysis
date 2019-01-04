@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Button from '@material-ui/core/Button';
 import feeds from './Feeds'
-import VChart from './VChart'
 import axios from 'axios'
 
 class Tbutton extends Component {
@@ -23,7 +22,7 @@ class Tbutton extends Component {
         this.setState({
             [name]: event.currentTarget.id,
         });
-        console.log("choose Topic: ", event.currentTarget.id)
+   
         this.setState({feedsView:event.currentTarget.id})
         const feed = new feeds();
         feed.addNewsList("")

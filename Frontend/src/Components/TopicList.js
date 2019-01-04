@@ -28,8 +28,7 @@ class TopicList extends React.Component {
 
         const url = "/api/getalltopics";
         instance.get(url).then(res => {
-
-            res.data.KafkaTopics.map((topic_data) => {
+            res.data.KafkaTopics.map(topic_data => {
 
                 var newTopic = this.state.allTopic.slice();
                 newTopic.push(topic_data)

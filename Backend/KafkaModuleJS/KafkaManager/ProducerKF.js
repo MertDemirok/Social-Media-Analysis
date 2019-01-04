@@ -5,6 +5,8 @@ var cors = require('cors');
 const _ = require('lodash');
 var bodyParser = require('body-parser');
 var Publisher = require("./Publisher");
+var fs = require('fs');
+
 
 var app = express();
 const port = 5001;
@@ -64,9 +66,21 @@ async function getAllTopicToKafka(){
 }
 
 app.post('/api/producer', function (req, res) {
-    var sentMessage = JSON.stringify(req.body.message);
+ /**   var obj = {
+    Topics: []
+ };
+    obj.Topics.push(req.body.topic) 
+    var jsn = JSON.stringify(obj);
+    console.log(jsn)
+    fs.appendFile("../../TopicList.json", jsn, function(err) {
+        if(err) {
+            return console.log(err);
+        }
+    
+        console.log("The file was saved!");
+    }); */
 
-    sendtoKafkaServer(req.body.topic, sentMessage).then((response) => {
+    sendtoKafkaServer(req.body.topic, req.body.message).then((response) => {
 
         res.json({ Response: "Success", data: response });
     });
