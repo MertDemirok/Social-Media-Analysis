@@ -10,7 +10,7 @@ const server = http.createServer(app);
 var client_Solr = new SolrNode({
    host: 'localhost',
    port: '8983',
-   core: 'TwitterData',
+   core: 'TwitterData_all',
    protocol: 'http'
 });
 
