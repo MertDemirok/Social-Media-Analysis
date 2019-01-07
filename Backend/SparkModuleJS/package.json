@@ -1,0 +1,26 @@
+{
+  "name": "sparkmodulejs",
+  "version": "1.0.0",
+  "description": "SparkModule",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ertugrul",
+  "license": "ISC",
+  "keywords": [
+    "spark"
+  ],
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "kafka": "^0.2.3",
+    "kafka-node": "^3.0.1",
+    "sentiment": "^5.0.1",
+    "sentiment-turkish": "^1.0.1",
+    "skale": "^1.2.1",
+    "socket.io": "^2.2.0",
+    "twitter": "^1.7.1"
+  }
+}

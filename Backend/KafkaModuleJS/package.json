@@ -1,0 +1,24 @@
+{
+  "name": "kafka",
+  "version": "1.0.0",
+  "description": "KafkaModulewithNodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.1",
+    "axios": "^0.18.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "kafka-node": "^3.0.1",
+    "lodash": "^4.17.11",
+    "node-tweet-stream": "^2.0.3",
+    "read-file": "^0.2.0",
+    "socket.io": "^2.2.0",
+    "solar-orionjs": "0.0.10",
+    "twitter": "^1.7.1"
+  }
+}
