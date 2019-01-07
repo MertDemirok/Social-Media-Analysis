@@ -1,108 +1,142 @@
-# Social Media Analysis 
+# Social Media Analysis
 
-In using
-*Apache Kafka
-  *Apache zookeeper
-*Apache spark
-*Node.js
-*React.js
-*MaterialUI
-*Socket.IO
+Social Media Real time analsis Application 
 
--- How to run --
+## Getting Started
 
-The Java Environment variables should be set.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-Got to the Apache Kafka downloads page and download the Scala 2.12 
+### Prerequisites
 
-https://kafka.apache.org/downloads
+What things you need to install the software and how to install them
 
-http://zookeeper.apache.org/releases.html#download
+```
+The Java Environment variables should be set. (jre, jdk)
+Apache Kafka Server
+Apache Solr Server
+Nodejs Server
 
-kafka_2.12-0.10.2.1.tgz
-Unzip it.
+```
 
-Open cmd prompt and start zookeeper-
+### Installing
 
-C:\kafka_2.12-0.10.2.1>.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+A step by step series of examples that tell you how to get a development env running
 
+Say what the step will be
 
+Server Side
+```
+1 - Install jdk jre
 
-Open a new command prompt and start the Apache Kafka-
+2 - Install 7-zip 
+    https://www.7-zip.org/
 
-C:\kafka_2.12-0.10.2.1>.\bin\windows\kafka-server-start.bat .\config\server.properties
+3 - Install Kafka current stable version
+    https://kafka.apache.org/downloads
+    a-Install Zookeeper current stable version 
+        1- http://zookeeper.apache.org/releases.html#download
+        2- You can download and unzip it anywhere but for the sake of this guide, i am assuming that zookeeper is extracted in C:\Tools\
+        3-Copy and Rename “zoo_sample.cfg” to “zoo.cfg” in C:\Tools\zookeeper-3.4.9\conf
+        4- Find & edit dataDir=/tmp/zookeeper to :\zookeeper-3.4.9\data using any text editor like notepad or notepad++. (change the zookeeper version as yours)
+        5- Add entries in System Environment Variables.
+            Add in System Variables ZOOKEEPER_HOME = C:\Tools\zookeeper-3.4.9
+            Edit System Variable named “Path” and append this in the last ;%ZOOKEEPER_HOME%\bin;
+        6- Open command prompt and type zkserver.
+        note: zkserver will start the zookeeper on the defualt port which is 2181, you can change the default port in zoo.cfg file
+        
+    b - kafka_2.12-0.10.2.1.tgz Unzip it.
+    c - Go to config folder in Apache Kafka and edit “server.properties” using any text editor.
+    d- Find log.dirs and repelace after “=/tmp/kafka-logs” to “=C:\\Tools\\kafka_2.10–0.10.1.1\\kafka-logs” and listeners=PLAINTEXT://:9092 (change your version number).
+    
+    note: Leave other setting as is. If your Apache Zookeeper on different server then change the “zookeeper.connect” property.
+    || By default Apache Kafka will run on port 9092 and Apache Zookeeper will run on port 2181.
+    e- Running Apache Kafka
 
+        1- Open command prompt and go to your Apache Kafka directory and run following command.
+        2-.\bin\windows\kafka-server-start.bat .\config\server.properties
+        Very good and your Apache Kafka is up and running on port 9092.
+        Kafka Test
+        
+        1- Open a new command prompt and create a topic with name javainuse-topic, that has only one partition & one replica.
 
+        2- C:\kafka_2.12-0.10.2.1>.\bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic javainuse-topic
+        
+        3- Next Open a new command prompt and create a producer to send message to the above created javainuse-topic and send a message - 
+        
+        Hello World Javainuse to it-
 
-Open a new command prompt and create a topic with name javainuse-topic, that has only one partition & one replica.
+        4- C:\kafka_2.12-0.10.2.1>.\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic javainuse-topic
+        Hello World Javainuse
+        5- Finally Open a new command prompt and start the consumer which listens to the topic javainuse-topic we just created above. We will get the message we had sent using the producer
+        
+        6- C:\kafka_2.12-0.10.2.1>.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic javainuse-topic --from-beginning
 
-C:\kafka_2.12-0.10.2.1>.\bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic javainuse-topic
+4- solr download and Install
+    a- Go to solr-7.6.0 folder in  your local path (example: C:\Tools\solr-7.6.0)
+    b- Open command prompt  and go to C:\Tools\solr-7.6.0\bin 
+    c - solr start
+    d - Open http://localhost:8983/solr/#/ in browser
+    e - Open command prompt  and go to C:\Tools\solr-7.6.0\bin 
+    f - solr create TwitterData_all
 
+5- Close all file and command prompt
 
-
-
-Next Open a new command prompt and create a producer to send message to the above created javainuse-topic and send a message - Hello World Javainuse to it-
-
-C:\kafka_2.12-0.10.2.1>.\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic javainuse-topic
-
-Hello World Javainuse
-
-
-
-Finally Open a new command prompt and start the consumer which listens to the topic javainuse-topic we just created above. We will get the message we had sent using the producer
-
-C:\kafka_2.12-0.10.2.1>.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic javainuse-topic --from-beginning
-
-configration 
-
-C:\kafka_2.11-2.1.0\config\server.properties
-
-tickTime=2000
-initLimit=10
-syncLimit=5
-dataDir=/usr/zookeeper/data
-clientPort=2181
-server.1=localhost:2888:3888
-
-
-C:\kafka_2.11-2.1.0\config\server.properties
-
-change
-
-log.dirs=C:\\Tools\\kafka_2.11-2.1.0\\kafka-logs
-
-listeners=PLAINTEXT://:9092
-
-
-Note: Run RunKafka.bat For Windows
-
-Troubleshooting
-
-If you deleted all topic , need to new kafka cluster create  
-1)Create the chroot in the Zookeeper with the following commands:
-
-zkCli.sh -server localhost:2181
-
-create /kafka1 []
-
-2)For the kafka brokers config , modify zookeeper.connect and add chroot path : For eg.
-
-In server.properties :
-
-zookeeper.connect=localhost:2181/kafka1
-
-3)Start Zookeeper
-
-4)Start Kafka Server
-
-5) Create a topic as below: bin/kafka-topic.sh --create -zookeeper localhost:2181/kafka1 --replication-factor 1 --partitions 1 --topic data
-
-6)Confirm the created topic: bin/kafka-topics.sh --list --zookeeper localhost:2181/kafka1
+```
+Note: We will be automated to all install instruction for all User..
 
 
+Client Side
+```
+1- Get Social-Media-Analysis project in  your local path 
+2- Go to Social-Media-Analysis folder in  your local path 
+3- Click AllServerRun.bat 
+4- Click AllModuleUp.bat
 
-solr download and Install and run bin/solr create TwitterD  solr directory
+```
+Happy ending and Coding :) 
 
-and
 
-solr start
+## Running the tests
+
+
+### Break down into end to end tests
+
+
+
+```
+
+```
+
+## Deployment
+
+------
+
+## Built With
+For Web App
+* [NODE.JS](https://nodejs.org/en/) - The web framework used
+Other The web framework used
+* [React.JS]
+* [MaterialUI]
+* [Socket.IO] 
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+----
+
+## Troubleshooting
+
+In Server 
+
+
+
+## Authors
+
+* **Mert Demirok** - [Mert Demirok](https://github.com/mertdemirok)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
