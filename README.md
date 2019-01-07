@@ -20,18 +20,17 @@ Nodejs Server
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+A step by step series of examples that tell you how to get a development env running  
 
-Say what the step will be
 
 Server Side
 ```
-1 - Install jdk jre
+1- Install jdk jre
 
-2 - Install 7-zip 
+2- Install 7-zip 
     https://www.7-zip.org/
 
-3 - Install Kafka current stable version
+3- Install Kafka current stable version
     https://kafka.apache.org/downloads
     a-Install Zookeeper current stable version 
         1- http://zookeeper.apache.org/releases.html#download
@@ -53,7 +52,7 @@ Server Side
     e- Running Apache Kafka
 
         1- Open command prompt and go to your Apache Kafka directory and run following command.
-        2-.\bin\windows\kafka-server-start.bat .\config\server.properties
+        2- .\bin\windows\kafka-server-start.bat .\config\server.properties
         Very good and your Apache Kafka is up and running on port 9092.
         Kafka Test
         
@@ -74,10 +73,10 @@ Server Side
 4- solr download and Install
     a- Go to solr-7.6.0 folder in  your local path (example: C:\Tools\solr-7.6.0)
     b- Open command prompt  and go to C:\Tools\solr-7.6.0\bin 
-    c - solr start
-    d - Open http://localhost:8983/solr/#/ in browser
-    e - Open command prompt  and go to C:\Tools\solr-7.6.0\bin 
-    f - solr create TwitterData_all
+    c- solr start
+    d- Open http://localhost:8983/solr/#/ in browser
+    e- Open command prompt  and go to C:\Tools\solr-7.6.0\bin 
+    f- solr create TwitterData_all
 
 5- Close all file and command prompt
 
@@ -101,8 +100,6 @@ Happy ending and Coding :)
 
 ### Break down into end to end tests
 
-
-
 ```
 
 ```
@@ -115,9 +112,9 @@ Happy ending and Coding :)
 For Web App
 * [NODE.JS](https://nodejs.org/en/) - The web framework used
 Other The web framework used
-* [React.JS]
-* [MaterialUI]
-* [Socket.IO] 
+* [React.JS](https://nodejs.org/en/)
+* [MaterialUI](https://nodejs.org/en/)
+* [Socket.IO] (https://nodejs.org/en/)
 
 ## Contributing
 
@@ -127,10 +124,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 ----
 
 ## Troubleshooting
-
-In Server 
-
-
+------
 
 ## Authors
 
