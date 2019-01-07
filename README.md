@@ -86,6 +86,7 @@ Note: We will be automated to all install instruction for all User..
 
 Client Side
 ```
+Note: first step go to Social-Media-Analysis\Backend\TopicList.json file clear all topic
 1- Get Social-Media-Analysis project in  your local path 
 2- Go to Social-Media-Analysis folder in  your local path 
 3- Click AllServerRun.bat 
